@@ -26,4 +26,10 @@ bin/
 .vscode/
 
 ### Mac OS ###
-.DS_Store
+.DS_Store.idea/
+backup/
+shared/
+.idea/
+*.iml
+backup/
+shared/
