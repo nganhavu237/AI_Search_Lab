@@ -1,104 +1,73 @@
-/*
- * Minimax Algorithm
- *
- * Explores the complete game tree
- * and chooses the optimal move.
- */
+let minimaxNodes = 0;
 
-let nodesExplored = 0;
+function minimax(board, isMaximizing, ai, human) {
 
-function minimax(board, isMaximizing) {
+    minimaxNodes++;
 
-    nodesExplored++;
+    const result = evaluateBoard(
+        board,
+        ai,
+        human
+    );
 
-    if (checkWinner("O")) {
-        return 10;
-    }
-
-    if (checkWinner("X")) {
-        return -10;
-    }
-
-    if (isBoardFullForMinimax(board)) {
-        return 0;
+    if (result !== null) {
+        return result;
     }
 
     if (isMaximizing) {
 
         let bestScore = -Infinity;
+        let bestMove = -1;
 
         for (let i = 0; i < 9; i++) {
 
             if (board[i] === "") {
 
-                board[i] = "O";
+                board[i] = ai;
 
-                let score = minimax(board, false);
-
-                board[i] = "";
-
-                bestScore = Math.max(score, bestScore);
-            }
-        }
-
-        return bestScore;
-
-    } else {
-
-        let bestScore = Infinity;
-
-        for (let i = 0; i < 9; i++) {
-
-            if (board[i] === "") {
-
-                board[i] = "X";
-
-                let score = minimax(board, true);
+                let score = minimax(
+                    board,
+                    false,
+                    ai,
+                    human
+                ).score;
 
                 board[i] = "";
 
-                bestScore = Math.min(score, bestScore);
+                if (score > bestScore) {
+                    bestScore = score;
+                    bestMove = i;
+                }
             }
         }
 
-        return bestScore;
+        return { score: bestScore, move: bestMove };
     }
-}
 
-function getBestMove(board) {
-
-    let bestScore = -Infinity;
-    let move = -1;
+    let bestScore = Infinity;
+    let bestMove = -1;
 
     for (let i = 0; i < 9; i++) {
 
         if (board[i] === "") {
 
-            board[i] = "O";
+            board[i] = human;
 
-            let score = minimax(board, false);
+            let score = minimax(
+                board,
+                true,
+                ai,
+                human
+            ).score;
 
             board[i] = "";
 
-            if (score > bestScore) {
-
+            if (score < bestScore) {
                 bestScore = score;
-                move = i;
+                bestMove = i;
             }
         }
     }
 
-    return move;
-}
-
-function isBoardFullForMinimax(board) {
-
-    for (let cell of board) {
-
-        if (cell === "") {
-            return false;
-        }
-    }
-
-    return true;
+    return { score: bestScore, move: bestMove };
 }

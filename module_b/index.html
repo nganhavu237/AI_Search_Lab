@@ -1,54 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Tic-Tac-Toe AI</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<h1>Tic-Tac-Toe AI</h1>
+<div class="game-wrapper">
 
-<div id="ticTacToeSection">
+    <h1>Tic-Tac-Toe AI</h1>
 
-    <label for="algorithmSelect">Algorithm:</label>
 
-    <select id="algorithmSelect">
-        <option value="minimax">Minimax</option>
-        <option value="alphabeta">Alpha-Beta</option>
-    </select>
+    <div class="home-container">
 
-    <label for="gameMode">Mode:</label>
-
-    <select id="gameMode">
-        <option value="human">Human vs AI</option>
-        <option value="ai">AI vs AI</option>
-    </select>
-
-    <button id="startAiGameBtn">
-        Start AI vs AI
-    </button>
-
-    <div id="metrics">
-
-        <p>Decision Time: <span id="decisionTime">0</span> ms</p>
-
-        <p>Nodes Explored: <span id="nodesExplored">0</span></p>
-
-        <p>Pruning Rate: <span id="pruningRate">0</span>%</p>
+        <a href="../index.html">
+            <button class="home-button">
+                Back to AI Search Lab
+            </button>
+        </a>
 
     </div>
 
-    <div id="board"></div>
 
-    <button id="restartBtn">Restart Game</button>
+    <div class="controls">
+
+
+        <div class="control-row">
+
+            <label>
+                Game Mode:
+            </label>
+
+            <select id="gameMode" onchange="updateControls()">
+
+                <option value="human">
+                    Human vs AI
+                </option>
+
+                <option value="ai">
+                    AI vs AI
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <div class="control-row" id="algorithmControl">
+
+            <label>
+                Algorithm:
+            </label>
+
+            <select id="algorithm">
+
+                <option value="minimax">
+                    Minimax
+                </option>
+
+                <option value="alphabeta">
+                    Alpha-Beta Pruning
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <div class="control-row" id="playerControl">
+
+            <label>
+                Play As:
+            </label>
+
+            <select id="playerSymbol">
+
+                <option value="X">
+                    X (First)
+                </option>
+
+                <option value="O">
+                    O (Second)
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <div class="control-row" id="aiXControl" style="display:none">
+
+            <label>
+                AI X:
+            </label>
+
+            <select id="aiX">
+
+                <option value="minimax">
+                    Minimax
+                </option>
+
+                <option value="alphabeta">
+                    Alpha-Beta Pruning
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <div class="control-row" id="aiOControl" style="display:none">
+
+            <label>
+                AI O:
+            </label>
+
+            <select id="aiO">
+
+                <option value="minimax">
+                    Minimax
+                </option>
+
+                <option value="alphabeta">
+                    Alpha-Beta Pruning
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <button onclick="startGame()">
+            Start Game
+        </button>
+
+
+    </div>
+
+
+
+    <h2 id="status">
+        Press Start Game
+    </h2>
+
+
+
+    <div id="board" class="board"></div>
+
+
+
+    <div id="stats">
+
+        <p>
+            Decision Time:
+            <span id="time">0</span> ms
+        </p>
+
+
+        <p>
+            Nodes Explored:
+            <span id="nodes">0</span>
+        </p>
+
+
+        <p>
+            Solution Length:
+            <span id="solutionLength">0</span> moves
+        </p>
+
+
+        <p>
+            Pruning Efficiency:
+            <span id="pruning">N/A</span>
+        </p>
+
+
+    </div>
+
 
 </div>
+
+
 
 <script src="minimax.js"></script>
 <script src="alphabeta.js"></script>
 <script src="tictactoe.js"></script>
 
+
+<script>
+    updateControls();
+</script>
+
+
 </body>
+
 </html>

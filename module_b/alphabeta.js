@@ -1,121 +1,111 @@
-/*
- * Alpha-Beta Pruning Algorithm
- *
- * Improves Minimax efficiency by
- * pruning branches that cannot
- * affect the final decision.
- */
+let alphaBetaNodes = 0;
+let prunedNodes = 0;
 
-function alphaBeta(board, depth, alpha, beta, isMaximizing) {
+function alphaBeta(
+    board,
+    depth,
+    alpha,
+    beta,
+    isMaximizing,
+    ai,
+    human
+) {
+    alphaBetaNodes++;
 
-    nodesExplored++;
+    const result = evaluateBoard(
+        board,
+        ai,
+        human
+    );
 
-    if (checkWinner("O")) {
-        return 10;
-    }
-
-    if (checkWinner("X")) {
-        return -10;
-    }
-
-    if (isBoardFullForMinimax(board)) {
-        return 0;
+    if (result !== null) {
+        return result;
     }
 
     if (isMaximizing) {
 
         let bestScore = -Infinity;
+        let bestMove = -1;
 
         for (let i = 0; i < 9; i++) {
 
             if (board[i] === "") {
 
-                board[i] = "O";
+                board[i] = ai;
 
                 let score = alphaBeta(
                     board,
                     depth + 1,
                     alpha,
                     beta,
-                    false
-                );
+                    false,
+                    ai,
+                    human
+                ).score;
 
                 board[i] = "";
 
-                bestScore = Math.max(bestScore, score);
+                if (score > bestScore) {
+                    bestScore = score;
+                    bestMove = i;
+                }
 
                 alpha = Math.max(alpha, score);
 
                 if (beta <= alpha) {
+                    prunedNodes++;
                     break;
                 }
             }
         }
 
-        return bestScore;
-
-    } else {
-
-        let bestScore = Infinity;
-
-        for (let i = 0; i < 9; i++) {
-
-            if (board[i] === "") {
-
-                board[i] = "X";
-
-                let score = alphaBeta(
-                    board,
-                    depth + 1,
-                    alpha,
-                    beta,
-                    true
-                );
-
-                board[i] = "";
-
-                bestScore = Math.min(bestScore, score);
-
-                beta = Math.min(beta, score);
-
-                if (beta <= alpha) {
-                    break;
-                }
-            }
-        }
-
-        return bestScore;
+        return {
+            score: bestScore,
+            move: bestMove
+        };
     }
-}
 
-function getBestMoveAlphaBeta(board) {
 
-    let bestScore = -Infinity;
-    let move = -1;
+    let bestScore = Infinity;
+    let bestMove = -1;
 
     for (let i = 0; i < 9; i++) {
 
         if (board[i] === "") {
 
-            board[i] = "O";
+            board[i] = human;
 
             let score = alphaBeta(
                 board,
-                0,
-                -Infinity,
-                Infinity,
-                false
-            );
+                depth + 1,
+                alpha,
+                beta,
+                true,
+                ai,
+                human
+            ).score;
 
             board[i] = "";
 
-            if (score > bestScore) {
 
+            if (score < bestScore) {
                 bestScore = score;
-                move = i;
+                bestMove = i;
+            }
+
+            beta = Math.min(beta, score);
+
+
+            if (beta <= alpha) {
+                prunedNodes++;
+                break;
             }
         }
     }
 
-    return move;
+
+    return {
+        score: bestScore,
+        move: bestMove
+    };
 }
