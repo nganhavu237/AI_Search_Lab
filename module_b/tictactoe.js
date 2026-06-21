@@ -16,19 +16,39 @@ const solutionSpan = document.getElementById("solutionLength");
 const pruningSpan = document.getElementById("pruning");
 
 function updateControls() {
-    const mode = document.getElementById("gameMode").value;
 
-    const algorithmControl = document.getElementById("algorithmControl");
-    const playerControl = document.getElementById("playerControl");
-    const aiXControl = document.getElementById("aiXControl");
-    const aiOControl = document.getElementById("aiOControl");
+    const mode =
+        document.getElementById("gameMode").value;
+
+    const algorithmControl =
+        document.getElementById("algorithmControl");
+
+    const playerControl =
+        document.getElementById("playerControl");
+
+    const aiXControl =
+        document.getElementById("aiXControl");
+
+    const aiOControl =
+        document.getElementById("aiOControl");
+
 
     if (mode === "ai") {
+
         algorithmControl.style.display = "none";
         playerControl.style.display = "none";
         aiXControl.style.display = "flex";
         aiOControl.style.display = "flex";
+
+    } else if (mode === "humanhuman") {
+
+        algorithmControl.style.display = "none";
+        playerControl.style.display = "none";
+        aiXControl.style.display = "none";
+        aiOControl.style.display = "none";
+
     } else {
+
         algorithmControl.style.display = "flex";
         playerControl.style.display = "flex";
         aiXControl.style.display = "none";
@@ -48,9 +68,14 @@ function startGame() {
 
     renderBoard();
 
-    const mode = document.getElementById("gameMode").value;
+    const mode =
+        document.getElementById("gameMode").value;
 
-    if (mode === "human") {
+    if (mode === "humanhuman") {
+
+        currentPlayer = "X";
+
+    } else if (mode === "human") {
 
         humanPlayer =
             document.getElementById("playerSymbol").value;
@@ -67,8 +92,11 @@ function startGame() {
     } else {
 
         currentPlayer = "X";
+
         setTimeout(aiVsAiMove, 500);
     }
+    statusDiv.textContent =
+        "Current Turn: X";
 }
 
 function renderBoard() {
@@ -92,7 +120,35 @@ function renderBoard() {
 function humanMove(index) {
 
     if (gameOver) return;
+
     if (board[index] !== "") return;
+
+    const mode =
+        document.getElementById("gameMode").value;
+
+
+    // Human vs Human
+    if (mode === "humanhuman") {
+
+        board[index] = currentPlayer;
+
+        renderBoard();
+
+        if (finishGame()) return;
+
+        currentPlayer =
+            currentPlayer === "X"
+            ? "O"
+            : "X";
+
+        statusDiv.textContent =
+            "Current Turn: " + currentPlayer;
+
+        return;
+    }
+
+
+    // Human vs AI
     if (currentPlayer !== humanPlayer) return;
 
     board[index] = humanPlayer;
@@ -102,6 +158,9 @@ function humanMove(index) {
     if (finishGame()) return;
 
     currentPlayer = aiPlayer;
+
+    statusDiv.textContent =
+        "Current Turn: " + currentPlayer;
 
     setTimeout(aiMove, 500);
 }
