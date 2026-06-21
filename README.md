@@ -1,6 +1,6 @@
 # AI Search Lab
 
-## 📌 Overview
+## Overview
 
 AI Search Lab is an interactive web-based project that demonstrates core Artificial Intelligence concepts through search algorithms and adversarial game playing.
 
@@ -12,7 +12,7 @@ These modules showcase how AI can solve structured problems and make intelligent
 
 ---
 
-## 🧩 Module A: 8-Puzzle Solver
+## Module A: 8-Puzzle Solver
 
 This module solves the classic 8-puzzle problem using multiple search algorithms.
 
@@ -32,7 +32,7 @@ The goal is to transform a scrambled 3x3 puzzle into the correct order using the
 
 ---
 
-## 🎮 Module B: Tic-Tac-Toe AI
+## Module B: Tic-Tac-Toe AI
 
 This module implements an AI opponent for the classic Tic-Tac-Toe game.
 
@@ -50,7 +50,7 @@ The AI evaluates all possible moves and selects the optimal one to either win or
 
 ---
 
-## 🧠 Key AI Concepts Used
+## Key AI Concepts Used
 
 - State-space search
 - Heuristic evaluation
@@ -60,7 +60,7 @@ The AI evaluates all possible moves and selects the optimal one to either win or
 
 ---
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 - HTML
 - CSS
@@ -68,7 +68,7 @@ The AI evaluates all possible moves and selects the optimal one to either win or
 
 ---
 
-## 🚀 How to Run the Project
+## How to Run the Project
 
 1. Download or clone the repository
 2. Open `index.html` in any modern web browser
@@ -80,7 +80,7 @@ No additional setup required.
 
 ---
 
-## 🎯 Project Goals
+## Project Goals
 
 - Demonstrate AI search strategies in a visual way
 - Compare multiple search algorithms
@@ -89,7 +89,7 @@ No additional setup required.
 
 ---
 
-## 📚 What We Learned
+## What We Learned
 
 - How AI explores problem spaces using search algorithms
 - Differences between BFS, DFS, Dijkstra, and A*
@@ -99,19 +99,19 @@ No additional setup required.
 
 ---
 
-## 👩‍💻 Authors
+## Authors
 
 - Safina Thapa — Module A (8-Puzzle Solver)
 - Ngan Ha Vu — Module B (Tic-Tac-Toe AI)
 
 ---
 
-## ✅ Status
+## Status
 
 Project completed and fully functional.
 
 
-## 📊 Comparative Analysis
+## Comparative Analysis
 
 This section compares single-agent search (8-Puzzle) and adversarial search (Tic-Tac-Toe) using empirical and structural analysis.
 
