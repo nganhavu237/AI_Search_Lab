@@ -111,58 +111,57 @@ No additional setup required.
 Project completed and fully functional.
 
 
+
 ## Comparative Analysis
 
-This section compares single-agent search (8-Puzzle) and adversarial search (Tic-Tac-Toe) using empirical and structural analysis.
+This section compares the performance and behavior of single-agent search (8-Puzzle) and adversarial search (Tic-Tac-Toe) using both structural reasoning and empirical observations collected during implementation.
 
 ---
 
 ### 1. Structural Comparison
 
-The 8-Puzzle and Tic-Tac-Toe both use state-space search, but their structures differ fundamentally. The 8-Puzzle is a single-agent problem where the system explores states toward a goal configuration without opposition. In contrast, Tic-Tac-Toe is a two-player adversarial game where each move depends on an opponent’s strategy. In the 8-Puzzle, the objective is to reach a fixed goal state, while in Tic-Tac-Toe, the objective is to maximize utility against an opponent who actively minimizes it.
+Although both the 8-Puzzle and Tic-Tac-Toe are represented as state-space search problems, their underlying structures are quite different. The 8-Puzzle is a single-agent problem where only one decision-maker is responsible for reaching a fixed goal configuration. Each move transitions the puzzle closer or further from the goal state, but there is no opposing force influencing the outcome.
+
+In contrast, Tic-Tac-Toe is a two-player adversarial game where each player’s move depends on anticipating the opponent’s response. Instead of searching for a fixed goal state, the objective is to maximize the chance of winning while minimizing the opponent’s advantage. This makes the search tree fundamentally different, as it alternates between maximizing and minimizing layers.
 
 ---
 
 ### 2. Algorithm Fit
 
-A* is appropriate for the 8-Puzzle because it uses a heuristic to estimate distance to the goal, guiding search efficiently. Tic-Tac-Toe, however, does not have a heuristic path to a single goal state; instead, it requires evaluating opponent moves, making Minimax more suitable. Minimax is not applicable to the 8-Puzzle because there is no adversarial agent influencing transitions.
+A* search works particularly well for the 8-Puzzle because it uses a heuristic to estimate how far a given state is from the goal. This allows the algorithm to focus on more promising states instead of exploring every possibility blindly. On the other hand, Tic-Tac-Toe does not have a meaningful heuristic that leads toward a single goal state in the same way, since the outcome depends on the opponent’s decisions.
+
+For this reason, Minimax is more suitable for Tic-Tac-Toe because it evaluates all possible moves while assuming optimal play from both sides. Minimax does not apply to the 8-Puzzle because there is no adversarial component that requires reasoning about an opponent.
 
 ---
 
 ### 3. Empirical Comparison — Module A
 
-Using the test puzzle [[8,1,3],[4,0,2],[7,6,5]]:
+Using the standardized test puzzle [[8,1,3],[4,0,2],[7,6,5]], the differences between search strategies became very clear during testing.
 
-- BFS expanded: ~thousands of nodes
-- Dijkstra expanded: similar to BFS due to uniform cost
-- A* expanded: significantly fewer nodes (tens to low hundreds)
+Breadth-First Search expanded the largest number of nodes since it explores all states level by level without any guidance. Dijkstra’s algorithm behaved similarly in this case because all moves have equal cost, making it effectively equivalent to BFS in practice.
 
-These results show that heuristic guidance dramatically reduces search space size. A* achieves efficiency by prioritizing promising states instead of exploring blindly.
+A*, however, performed significantly better by expanding far fewer nodes. Instead of exploring blindly, it prioritized states that appeared closer to the goal based on the heuristic. This resulted in a much smaller search space and faster solution discovery, typically reducing exploration from thousands of nodes to only tens or low hundreds.
 
 ---
 
 ### 4. Empirical Comparison — Module B
 
-On an empty Tic-Tac-Toe board:
+For the Tic-Tac-Toe module, performance was evaluated using an empty board with AI-first play. The Minimax algorithm explored a large portion of the game tree, since it evaluates all possible moves to ensure optimal decision-making.
 
-- Minimax explored: full game tree (hundreds of nodes)
-- Alpha-Beta Pruning reduced exploration significantly
-- Observed pruning efficiency: high reduction in unnecessary branches
-
-This demonstrates that pruning removes redundant evaluations while preserving optimal decisions.
+When Alpha-Beta pruning was applied, the number of explored nodes decreased significantly. Many branches were cut off early once it became clear they would not affect the final decision. Importantly, this optimization did not change the final result of the game, but it greatly improved efficiency. In practice, pruning removed a large percentage of unnecessary evaluations, especially in deeper parts of the tree.
 
 ---
 
 ### 5. Trade-off Analysis
 
-- BFS: complete but inefficient; guarantees shortest path but uses high memory.
-- Dijkstra: complete and optimal but unnecessary for equal-cost moves.
-- A*: optimal and efficient due to heuristic guidance.
-- Minimax: complete but computationally expensive.
-- Alpha-Beta: same result as Minimax but more efficient due to pruning.
+Each algorithm in this project comes with different strengths and limitations.
+
+BFS guarantees the shortest path but is inefficient in both time and memory. Dijkstra also guarantees optimality but is unnecessary when all moves have equal cost. A* improves efficiency by using heuristics, making it both optimal and significantly faster in practice.
+
+In the adversarial setting, Minimax guarantees optimal gameplay but becomes computationally expensive as the search tree grows. Alpha-Beta pruning improves upon this by eliminating branches that cannot influence the final decision, reducing computation while preserving correctness.
 
 ---
 
 ### Conclusion
 
-Heuristic-based search significantly improves performance in structured problems like the 8-Puzzle, while pruning techniques optimize adversarial decision-making in games like Tic-Tac-Toe. The experiments demonstrate how AI performance depends heavily on reducing unnecessary exploration in large search spaces.
+Overall, the experiments clearly show the importance of optimizing search strategies in AI systems. In the 8-Puzzle, heuristic-based search dramatically improves efficiency compared to uninformed methods. In Tic-Tac-Toe, pruning techniques significantly reduce computation in adversarial decision-making. Across both modules, the project highlights how intelligent pruning and heuristic guidance are essential for making search problems computationally feasible.
