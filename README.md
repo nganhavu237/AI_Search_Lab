@@ -101,8 +101,8 @@ No additional setup required.
 
 ## Authors
 
-- Safina Thapa — Module A (8-Puzzle Solver)
-- Ngan Ha Vu — Module B (Tic-Tac-Toe AI)
+- Safina Thapa - Module A (8-Puzzle Solver)
+- Ngan Ha Vu - Module B (Tic-Tac-Toe AI)
 
 ---
 
@@ -114,7 +114,7 @@ Project completed and fully functional.
 
 ## Comparative Analysis
 
-In this project, I compared how two different types of AI problems behave: single-agent search in the 8-Puzzle and adversarial search in Tic-Tac-Toe. Even though both use state-space search, they feel quite different when you actually implement and test them.
+In this project, we compared how two different types of AI problems behave: single-agent search in the 8-Puzzle and adversarial search in Tic-Tac-Toe. Even though both use state-space search, they feel quite different when you actually implement and test them.
 
 ---
 
@@ -134,7 +134,7 @@ Tic-Tac-Toe does not really use heuristics in the same way because there is no s
 
 ---
 
-### 3. Empirical Comparison — Module A
+### 3. Empirical Comparison - Module A
 
 For the test puzzle [[8,1,3],[4,0,2],[7,6,5]], I noticed a big difference between the algorithms.
 
@@ -144,7 +144,7 @@ A* was much faster and explored far fewer nodes because it uses the heuristic to
 
 ---
 
-### 4. Empirical Comparison — Module B
+### 4. Empirical Comparison - Module B
 
 For Tic-Tac-Toe, Minimax looked at almost every possible move on the board, so it explored a large number of game states.
 
