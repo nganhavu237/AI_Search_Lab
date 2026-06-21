@@ -89,7 +89,7 @@ No additional setup required.
 
 ---
 
-## 📚 What I Learned
+## 📚 What We Learned
 
 - How AI explores problem spaces using search algorithms
 - Differences between BFS, DFS, Dijkstra, and A*
@@ -101,8 +101,8 @@ No additional setup required.
 
 ## 👩‍💻 Authors
 
-- Module A: 8-Puzzle Solver Implementation
-- Module B: Tic-Tac-Toe AI Implementation
+- Safina Thapa — Module A (8-Puzzle Solver)
+- Ngan Ha Vu — Module B (Tic-Tac-Toe AI)
 
 ---
 
