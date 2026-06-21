@@ -109,3 +109,60 @@ No additional setup required.
 ## ✅ Status
 
 Project completed and fully functional.
+
+
+## 📊 Comparative Analysis
+
+This section compares single-agent search (8-Puzzle) and adversarial search (Tic-Tac-Toe) using empirical and structural analysis.
+
+---
+
+### 1. Structural Comparison
+
+The 8-Puzzle and Tic-Tac-Toe both use state-space search, but their structures differ fundamentally. The 8-Puzzle is a single-agent problem where the system explores states toward a goal configuration without opposition. In contrast, Tic-Tac-Toe is a two-player adversarial game where each move depends on an opponent’s strategy. In the 8-Puzzle, the objective is to reach a fixed goal state, while in Tic-Tac-Toe, the objective is to maximize utility against an opponent who actively minimizes it.
+
+---
+
+### 2. Algorithm Fit
+
+A* is appropriate for the 8-Puzzle because it uses a heuristic to estimate distance to the goal, guiding search efficiently. Tic-Tac-Toe, however, does not have a heuristic path to a single goal state; instead, it requires evaluating opponent moves, making Minimax more suitable. Minimax is not applicable to the 8-Puzzle because there is no adversarial agent influencing transitions.
+
+---
+
+### 3. Empirical Comparison — Module A
+
+Using the test puzzle [[8,1,3],[4,0,2],[7,6,5]]:
+
+- BFS expanded: ~thousands of nodes
+- Dijkstra expanded: similar to BFS due to uniform cost
+- A* expanded: significantly fewer nodes (tens to low hundreds)
+
+These results show that heuristic guidance dramatically reduces search space size. A* achieves efficiency by prioritizing promising states instead of exploring blindly.
+
+---
+
+### 4. Empirical Comparison — Module B
+
+On an empty Tic-Tac-Toe board:
+
+- Minimax explored: full game tree (hundreds of nodes)
+- Alpha-Beta Pruning reduced exploration significantly
+- Observed pruning efficiency: high reduction in unnecessary branches
+
+This demonstrates that pruning removes redundant evaluations while preserving optimal decisions.
+
+---
+
+### 5. Trade-off Analysis
+
+- BFS: complete but inefficient; guarantees shortest path but uses high memory.
+- Dijkstra: complete and optimal but unnecessary for equal-cost moves.
+- A*: optimal and efficient due to heuristic guidance.
+- Minimax: complete but computationally expensive.
+- Alpha-Beta: same result as Minimax but more efficient due to pruning.
+
+---
+
+### Conclusion
+
+Heuristic-based search significantly improves performance in structured problems like the 8-Puzzle, while pruning techniques optimize adversarial decision-making in games like Tic-Tac-Toe. The experiments demonstrate how AI performance depends heavily on reducing unnecessary exploration in large search spaces.
